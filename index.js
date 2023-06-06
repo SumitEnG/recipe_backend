@@ -1,9 +1,15 @@
 require("express-async-errors");
 const express = require("express");
 const app = express();
+const cors = require("cors");
 require("dotenv").config();
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 require("./startup/db")();
 require("./startup/routes")(app);
 
