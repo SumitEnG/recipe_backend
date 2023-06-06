@@ -3,5 +3,5 @@ module.exports = function (app) {
   const errors = require("../midlewares/error");
 
   app.use("/api/recipes", recipeRoute);
-  ap.use(errors);
+  app.use(errors);
 };
