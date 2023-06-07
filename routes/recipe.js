@@ -30,4 +30,15 @@ recipeRoutes.post("/", async (req, res) => {
   res.send(recipe);
 });
 
+recipeRoutes.get("/:id", async (req, res) => {
+  const recipe = await Recipe.findById(req.params.id);
+
+  if (!recipe) {
+    res.status(404).send("not found");
+    return;
+  }
+
+  res.send(recipe);
+});
+
 module.exports = recipeRoutes;
