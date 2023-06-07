@@ -17,6 +17,7 @@ recipeRoutes.post("/", async (req, res) => {
 
   const recipe = new Recipe(
     _.pick(req.body, [
+      "recipeName",
       "description",
       "ingredients",
       "makingProcess",
