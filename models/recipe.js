@@ -2,6 +2,10 @@ const Joi = require("joi");
 const mongoose = require("mongoose");
 
 const recipeSchema = new mongoose.Schema({
+  recipeName: {
+    type: String,
+    required: true,
+  },
   description: {
     type: String,
     required: true,
@@ -20,18 +24,21 @@ const recipeSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  imgUrl: {
+    type: String,
+  },
 });
 
 const Recipe = new mongoose.model("Recipe", recipeSchema);
 
 const validateRecipe = (recipe) => {
   const schema = Joi.object({
+    recipeName: Joi.string().required(),
     description: Joi.string().required(),
     ingredients: Joi.array().items(Joi.string()).required(),
     makingProcess: Joi.array().items(Joi.string()).required(),
     ratings: Joi.number(),
     authorName: Joi.string(),
-    date: Joi.string(),
   });
 
   return schema.validate(recipe);
