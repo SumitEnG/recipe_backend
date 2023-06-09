@@ -47,7 +47,8 @@ recipeRoutes.get("/:id", async (req, res) => {
 });
 
 recipeRoutes.post("/upload", upload.single("recipeImage"), (req, res) => {
-  console.log(res.file);
+  console.log(req.file);
+  console.log(req.body);
 });
 
 module.exports = recipeRoutes;
