@@ -18,7 +18,10 @@ const recipeSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
-  ratings: Number,
+  ratings: {
+    type: Number,
+    default: null,
+  },
   authorName: String,
   date: {
     type: Date,
@@ -39,6 +42,7 @@ const validateRecipe = (recipe) => {
     makingProcess: Joi.array().items(Joi.string()).required(),
     ratings: Joi.number(),
     authorName: Joi.string(),
+    imgUrl: Joi.string(),
   });
 
   return schema.validate(recipe);
