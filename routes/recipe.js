@@ -2,6 +2,11 @@ const express = require("express");
 const { validateRecipe, Recipe } = require("../models/recipe");
 const recipeRoutes = express.Router();
 const _ = require("lodash");
+const multer = require("multer");
+
+recipeRoutes.use(express.urlencoded());
+
+const upload = multer({ dest: "uploads/" });
 
 recipeRoutes.get("/", async (req, res) => {
   const recipe = await Recipe.find();
@@ -39,6 +44,10 @@ recipeRoutes.get("/:id", async (req, res) => {
   }
 
   res.send(recipe);
+});
+
+recipeRoutes.post("/upload", upload.single("recipeImage"), (req, res) => {
+  console.log(res.file);
 });
 
 module.exports = recipeRoutes;
