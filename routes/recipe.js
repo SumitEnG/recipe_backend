@@ -4,7 +4,7 @@ const recipeRoutes = express.Router();
 const _ = require("lodash");
 const multer = require("multer");
 
-recipeRoutes.use(express.urlencoded());
+recipeRoutes.use(express.urlencoded({ extended: false }));
 
 const upload = multer({ dest: "uploads/" });
 
@@ -46,9 +46,13 @@ recipeRoutes.get("/:id", async (req, res) => {
   res.send(recipe);
 });
 
-recipeRoutes.post("/upload", upload.single("recipeImage"), (req, res) => {
-  console.log(req.file);
-  console.log(req.body);
-});
+recipeRoutes.post(
+  "/uploads",
+  upload.single("recipeImage"),
+  async (req, res) => {
+    console.log(req.file);
+    console.log(req.body);
+  }
+);
 
 module.exports = recipeRoutes;
