@@ -6,7 +6,16 @@ const multer = require("multer");
 
 recipeRoutes.use(express.urlencoded({ extended: false }));
 
-const upload = multer({ dest: "uploads/" });
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    return cb(null, "./uploads");
+  },
+  filename: function (req, file, cb) {
+    return cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 recipeRoutes.get("/", async (req, res) => {
   const recipe = await Recipe.find();
@@ -52,6 +61,7 @@ recipeRoutes.post(
   async (req, res) => {
     console.log(req.file);
     console.log(req.body);
+    res.send(req.file.path);
   }
 );
 
