@@ -37,6 +37,7 @@ recipeRoutes.post("/", async (req, res) => {
       "makingProcess",
       "ratings",
       "authorName",
+      "imgUrl",
     ])
   );
 
