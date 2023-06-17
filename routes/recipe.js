@@ -5,6 +5,7 @@ const _ = require("lodash");
 const multer = require("multer");
 
 recipeRoutes.use(express.urlencoded({ extended: false }));
+recipeRoutes.use("/uploads", express.static("uploads"));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
