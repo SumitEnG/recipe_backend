@@ -26,8 +26,7 @@ authRoute.post("/login", async (req, res) => {
     return;
   }
 
-  const token = user.generateAuthTokens();
-  res.send(token);
+  res.send(true);
 });
 
 function validateUser(user) {

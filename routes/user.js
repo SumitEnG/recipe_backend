@@ -34,7 +34,7 @@ userRoutes.post("/signup", async (req, res) => {
 
   await user.save();
   const token = user.generateAuthTokens();
-  res.header("x-auth-token", token).send(_.pick(user, ["name", "mail"]));
+  res.header("x-auth-token", token).send(token);
 });
 
 module.exports = userRoutes;
