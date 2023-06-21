@@ -24,15 +24,21 @@ const userSchema = new mongoose.Schema({
     min: 6,
     max: 300,
   },
+  token: {
+    type: String,
+    required: true,
+  },
 });
 
-userSchema.methods.generateAuthTokens = function () {
+userSchema.methods.generateAuthTokens = async function () {
   const token = jwt.sign(
     {
       _id: this._id,
     },
     process.env.jwtPrivateKey
   );
+  this.token = token;
+  await this.save();
   return token;
 };
 

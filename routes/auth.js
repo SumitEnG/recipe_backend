@@ -25,8 +25,8 @@ authRoute.post("/login", async (req, res) => {
     res.status(400).send("invalid mail or password");
     return;
   }
-
-  res.send(true);
+  const token = user.generateAuthTokens();
+  res.send(token);
 });
 
 function validateUser(user) {
