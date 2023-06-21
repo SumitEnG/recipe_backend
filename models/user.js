@@ -24,10 +24,14 @@ const userSchema = new mongoose.Schema({
     min: 6,
     max: 300,
   },
-  token: {
-    type: String,
-    required: true,
-  },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 userSchema.methods.generateAuthTokens = async function () {
@@ -37,7 +41,7 @@ userSchema.methods.generateAuthTokens = async function () {
     },
     process.env.jwtPrivateKey
   );
-  this.token = token;
+  this.tokens = this.tokens.concat({ token: token });
   await this.save();
   return token;
 };
