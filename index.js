@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 const path = require("path");
+const cookieParser = require("cookie-parser");
 
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -12,6 +13,7 @@ app.use(
     origin: "http://localhost:3000",
   })
 );
+app.use(cookieParser());
 require("./startup/db")();
 require("./startup/routes")(app);
 

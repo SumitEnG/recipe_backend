@@ -33,10 +33,12 @@ userRoutes.post("/signup", async (req, res) => {
   user.password = await bcrypt.hash(user.password, salt);
 
   await user.save();
-  const token = user.generateAuthTokens();
-
-  res.cookie("jwt", token);
-  res.header("x-auth-token", token).send(token);
+  const token = await user.generateAuthTokens();
+  console.log(token);
+  res.cookie("jwt", token, { httpOnly: true });
+  res
+    .header("x-auth-token", token)
+    .send(_.pick(user, ["name", "mail", "tokens"]));
 });
 
 module.exports = userRoutes;

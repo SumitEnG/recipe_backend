@@ -25,7 +25,9 @@ authRoute.post("/login", async (req, res) => {
     res.status(400).send("invalid mail or password");
     return;
   }
-  const token = user.generateAuthTokens();
+  const token = await user.generateAuthTokens();
+  console.log(token);
+  res.cookie("jwt", token, { httpOnly: true });
   res.send(token);
 });
 
