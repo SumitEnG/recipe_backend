@@ -35,7 +35,6 @@ userRoutes.post("/signup", async (req, res) => {
   await user.save();
   const token = await user.generateAuthTokens();
   console.log(token);
-  res.cookie("jwt", token, { httpOnly: true });
   res
     .header("x-auth-token", token)
     .send(_.pick(user, ["name", "mail", "tokens"]));

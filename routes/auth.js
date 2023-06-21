@@ -27,7 +27,6 @@ authRoute.post("/login", async (req, res) => {
   }
   const token = await user.generateAuthTokens();
   console.log(token);
-  res.cookie("jwt", token, { httpOnly: true });
   res.send(token);
 });
 
