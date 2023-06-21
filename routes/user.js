@@ -34,6 +34,8 @@ userRoutes.post("/signup", async (req, res) => {
 
   await user.save();
   const token = user.generateAuthTokens();
+
+  res.cookie("jwt", token);
   res.header("x-auth-token", token).send(token);
 });
 
