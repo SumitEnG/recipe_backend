@@ -48,4 +48,9 @@ favRacipeRoutes.get("/:id", auth, async (req, res) => {
   res.send(recipe);
 });
 
+favRacipeRoutes.delete("/:id", async (req, res) => {
+  const recipe = await FavRecipe.findByIdAndDelete(req.params.id);
+  res.send(recipe);
+});
+
 module.exports = favRacipeRoutes;
