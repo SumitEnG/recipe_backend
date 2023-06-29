@@ -8,6 +8,6 @@ module.exports = function (app) {
   app.use("/api/recipes", recipeRoute);
   app.use("/api/user", userRoutes);
   app.use("/api/user", authRoute);
-  app.use("/api/recipes/fav", favRoute);
+  app.use("/api/favRecipe", favRoute);
   app.use(errors);
 };
