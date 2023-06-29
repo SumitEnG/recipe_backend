@@ -1,16 +1,16 @@
 const express = require("express");
-const { validateRecipe, Recipe } = require("../models/favRecipe");
-const recipeRoutes = express.Router();
+const { validateRecipe, FavRecipe } = require("../models/favRecipe");
+const favRacipeRoutes = express.Router();
 const _ = require("lodash");
 const auth = require("../midlewares/auth");
 const { User } = require("../models/user");
 
-recipeRoutes.get("/", async (req, res) => {
+favRacipeRoutes.get("/", async (req, res) => {
   const recipe = await Recipe.find();
   res.send(recipe);
 });
 
-recipeRoutes.post("/", async (req, res) => {
+favRacipeRoutes.post("/", auth, async (req, res) => {
   const result = validateRecipe(req.body);
   if (result.error) {
     res.status(400).send(result.error.details[0].message);
@@ -20,7 +20,7 @@ recipeRoutes.post("/", async (req, res) => {
   const user = await User.find({ _id: req.body.userId });
   console.log("user", user);
 
-  const recipe = new Recipe({
+  const recipe = new FavRecipe({
     recipeName: req.body.recipeName,
     description: req.body.description,
     ingredients: req.body.ingredients,
@@ -37,7 +37,7 @@ recipeRoutes.post("/", async (req, res) => {
   res.send(recipe);
 });
 
-recipeRoutes.get("/:id", auth, async (req, res) => {
+favRacipeRoutes.get("/:id", auth, async (req, res) => {
   const recipe = await Recipe.findById(req.params.id);
 
   if (!recipe) {
@@ -48,4 +48,4 @@ recipeRoutes.get("/:id", auth, async (req, res) => {
   res.send(recipe);
 });
 
-module.exports = recipeRoutes;
+module.exports = favRacipeRoutes;

@@ -24,7 +24,7 @@ recipeRoutes.get("/", async (req, res) => {
   res.send(recipe);
 });
 
-recipeRoutes.post("/", async (req, res) => {
+recipeRoutes.post("/", auth, async (req, res) => {
   const result = validateRecipe(req.body);
   if (result.error) {
     res.status(400).send(result.error.details[0].message);
