@@ -2,7 +2,7 @@ const Joi = require("joi");
 const mongoose = require("mongoose");
 Joi.objectId = require("joi-objectid")(Joi);
 
-const recipeSchema = new mongoose.Schema({
+const favRecipeSchema = new mongoose.Schema({
   recipeName: {
     type: String,
     required: true,
@@ -40,7 +40,7 @@ const recipeSchema = new mongoose.Schema({
   },
 });
 
-const Recipe = new mongoose.model("Recipe", recipeSchema);
+const FavRecipe = new mongoose.model("FavRecipe", favRecipeSchema);
 
 const validateRecipe = (recipe) => {
   const schema = Joi.object({
@@ -57,5 +57,5 @@ const validateRecipe = (recipe) => {
   return schema.validate(recipe);
 };
 
-module.exports.Recipe = Recipe;
+module.exports.FavRecipe = FavRecipe;
 module.exports.validateRecipe = validateRecipe;
