@@ -6,7 +6,7 @@ const auth = require("../midlewares/auth");
 const { User } = require("../models/user");
 
 favRacipeRoutes.get("/", async (req, res) => {
-  const recipe = await Recipe.find();
+  const recipe = await FavRecipe.find();
   res.send(recipe);
 });
 
@@ -38,7 +38,7 @@ favRacipeRoutes.post("/", auth, async (req, res) => {
 });
 
 favRacipeRoutes.get("/:id", auth, async (req, res) => {
-  const recipe = await Recipe.findById(req.params.id);
+  const recipe = await FavRecipe.findById(req.params.id);
 
   if (!recipe) {
     res.status(404).send("not found");
