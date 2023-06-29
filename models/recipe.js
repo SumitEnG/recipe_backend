@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
+Joi.objectId = require("joi-objectid")(Joi);
 
 const recipeSchema = new mongoose.Schema({
   recipeName: {
@@ -22,13 +23,20 @@ const recipeSchema = new mongoose.Schema({
     type: Number,
     default: null,
   },
-  authorName: String,
+  authorName: {
+    type: String,
+    required: true,
+  },
   date: {
     type: Date,
     default: Date.now,
   },
   imgUrl: {
     type: String,
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 
@@ -41,8 +49,9 @@ const validateRecipe = (recipe) => {
     ingredients: Joi.array().items(Joi.string()).required(),
     makingProcess: Joi.array().items(Joi.string()).required(),
     ratings: Joi.number(),
-    authorName: Joi.string(),
+    authorName: Joi.string().required(),
     imgUrl: Joi.string(),
+    userId: Joi.objectId(),
   });
 
   return schema.validate(recipe);
