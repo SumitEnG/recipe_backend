@@ -9,7 +9,7 @@ app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://cerulean-biscochitos-49739a.netlify.app",
   })
 );
 require("./startup/db")();
